@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.controllers;
+package org.metrunui.digibooky.exception;
 
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
