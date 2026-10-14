@@ -29,6 +29,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 "Something went wrong. Please try again later.");
     }
 
+    @ExceptionHandler(UnauthorizedException.class)
+    public ProblemDetail handleUnauthorized(UnauthorizedException ex) {
+        log.warn("Unauthorized: {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ProblemDetail handleForbidden(ForbiddenException ex) {
+        log.warn("Forbidden: {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+    }
+
     // Logs the errors Spring handles itself (invalid JSON, wrong method, ...)
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(
@@ -40,4 +52,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.warn("{}: {}", ex.getClass().getSimpleName(), ex.getMessage());
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
     }
+
+
 }
