@@ -1,0 +1,8 @@
+2026-10-14T10:43:46.709+02:00  INFO 37424 --- [Digibooky] [main] o.m.digibooky.DigibookyApplicationTests  : Starting DigibookyApplicationTests using Java 26.0.2.1 with PID 37424 (started by apettiau in C:\Users\apettiau\OneDrive - Federal Public Service - Finance\Documents\Switchfully\digibooky-project)
+2026-10-14T10:43:46.711+02:00 DEBUG 37424 --- [Digibooky] [main] o.m.digibooky.DigibookyApplicationTests  : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-14T10:43:46.713+02:00  INFO 37424 --- [Digibooky] [main] o.m.digibooky.DigibookyApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2026-10-14T10:43:48.688+02:00  INFO 37424 --- [Digibooky] [main] o.m.digibooky.DigibookyApplicationTests  : Started DigibookyApplicationTests in 2.421 seconds (process running for 3.888)
+2026-10-14T10:43:48.694+02:00  WARN 37424 --- [Digibooky] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-14T10:43:48.695+02:00  WARN 37424 --- [Digibooky] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-14T10:43:49.678+02:00  WARN 37424 --- [Digibooky] [main] o.m.d.service.AuthorizationService       : Request received without a user id
+2026-10-14T10:43:49.684+02:00  WARN 37424 --- [Digibooky] [main] o.m.d.service.AuthorizationService       : Request received with unknown user id de5d5423-8595-4d3a-b7d7-96d497858f9f
