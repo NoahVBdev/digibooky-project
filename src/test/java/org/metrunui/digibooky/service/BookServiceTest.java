@@ -32,7 +32,7 @@ class BookServiceTest {
         Mockito.when(bookRepository.getAllBooks()).thenReturn(List.of(book1, book2));
         
         // THEN
-        assertEquals(expectedBooks, bookService.getAllBooks());
+        assertEquals(expectedBooks, bookService.getBooks(null, null, null, null));
         Mockito.verify(bookRepository).getAllBooks();
     }
 }

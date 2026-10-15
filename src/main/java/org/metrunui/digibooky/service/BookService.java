@@ -4,10 +4,10 @@ import org.metrunui.digibooky.domain.Book;
 import org.metrunui.digibooky.domain.BookNotFoundException;
 import org.metrunui.digibooky.exception.BookServiceException;
 import org.metrunui.digibooky.repository.BookRepository;
+import org.metrunui.digibooky.util.BookSearchCriteria;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,15 +19,14 @@ public class BookService {
     }
 
     public Book save(Book book) {
-        // Check if book already in db
         if (bookRepository.findByISBN(book.getIsbn()).isPresent()) {
             throw new BookServiceException("Book with this ISBN already exists. ISBN provided: " + book.getIsbn());
         }
         return bookRepository.save(book);
     }
 
-    public Collection<Book> getAllBooks() {
-        return bookRepository.getAllBooks();
+    public Collection<Book> getBooks(String isbn, String title, String authorLastName, String authorFirstName) {
+        return bookRepository.findBooks(new BookSearchCriteria(isbn, title, authorLastName, authorFirstName));
     }
 
     public Book getBook(String id) {
