@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.controllers;
+package org.metrunui.digibooky.controller;
 
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
