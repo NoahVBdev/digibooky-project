@@ -3,7 +3,7 @@ package org.metrunui.digibooky.controller;
 import jakarta.validation.Valid;
 import org.metrunui.digibooky.controller.dto.CreateMemberDTO;
 import org.metrunui.digibooky.controller.dto.MemberDTO;
-import org.metrunui.digibooky.controllers.mapper.MemberMapper;
+import org.metrunui.digibooky.controller.mapper.MemberMapper;
 import org.metrunui.digibooky.domain.Member;
 import org.metrunui.digibooky.service.MemberService;
 import org.springframework.http.HttpStatus;

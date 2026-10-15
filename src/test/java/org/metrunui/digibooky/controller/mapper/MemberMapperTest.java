@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.controllers.mapper;
+package org.metrunui.digibooky.controller.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.metrunui.digibooky.controller.dto.CreateMemberDTO;
