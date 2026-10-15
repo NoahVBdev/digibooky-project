@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.controllers.mapper;
+package org.metrunui.digibooky.controller.mapper;
 
 import org.metrunui.digibooky.controller.dto.CreateMemberDTO;
 import org.metrunui.digibooky.controller.dto.MemberDTO;
