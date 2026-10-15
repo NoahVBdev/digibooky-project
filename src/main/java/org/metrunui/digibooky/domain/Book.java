@@ -17,13 +17,19 @@ public class Book {
 
     public Book(String isbn, String title, String summary, String authorLastName, String authorFirstName) {
         if (isbn.isBlank()) throw new BookException("isbn is required.");
+        try {
+            Long.parseLong(isbn);
+        } catch (NumberFormatException ex) {
+            throw new BookException("all isbn characters should be digits.");
+        }
         if (isbn.length() != ISBN_LENGTH) throw new BookException("isbn should be " + ISBN_LENGTH + " digits.");
-        if (!isbn.startsWith(ISBN_VALID_PREFIX_1) && !isbn.startsWith(ISBN_VALID_PREFIX_2)) throw new BookException("isbn should begin with valid prefix.");
+        if (!isbn.startsWith(ISBN_VALID_PREFIX_1) && !isbn.startsWith(ISBN_VALID_PREFIX_2))
+            throw new BookException("isbn should begin with valid prefix.");
 
         if (title.isBlank()) throw new BookException("title is required.");
         if (authorLastName.isBlank()) throw new BookException("author last name is required.");
-        if (authorFirstName.isBlank()) throw new BookException("author last name is required.");
-        
+        if (authorFirstName.isBlank()) throw new BookException("author first name is required.");
+
         this.bookId = UUID.randomUUID();
         this.isbn = isbn;
         this.title = title;

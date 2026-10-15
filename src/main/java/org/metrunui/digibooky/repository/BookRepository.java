@@ -42,7 +42,7 @@ public class BookRepository {
      * If the ISBN is blank, an empty {@link Optional} is returned immediately.
      * </p>
      *
-     * @param isbn isbn the ISBN to search for
+     * @param isbn the ISBN to search for
      * @return {@link Optional}  containing the matching book, or {@link Optional#empty()} if the ISBN is blank or no matching book exists
      */
     public Optional<Book> findByISBN(String isbn) {
@@ -54,5 +54,21 @@ public class BookRepository {
 
     public Collection<Book> getAllBooks() {
         return books.values();
+    }
+
+    /**
+     * Get book details by the specified id.
+     * @param id the id to search for
+     * @return {@link Optional}  containing the matching book, or {@link Optional#empty()} if the id is null< or no matching book exists
+     */
+    public Optional<Book> getBook(UUID id) {
+        if (id == null) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(books.get(id));
+    }
+
+    public void clear() {
+        books.clear();
     }
 }

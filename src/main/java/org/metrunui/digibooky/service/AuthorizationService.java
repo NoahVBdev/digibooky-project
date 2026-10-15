@@ -1,10 +1,9 @@
 package org.metrunui.digibooky.service;
 
 
-import org.metrunui.digibooky.controllers.ForbiddenException;
-import org.metrunui.digibooky.controllers.UnauthorizedException;
+import org.metrunui.digibooky.exception.ForbiddenException;
+import org.metrunui.digibooky.exception.UnauthorizedException;
 import org.metrunui.digibooky.domain.Feature;
-import org.metrunui.digibooky.domain.Role;
 import org.metrunui.digibooky.domain.User;
 import org.metrunui.digibooky.repository.UserRepository;
 import org.slf4j.Logger;
