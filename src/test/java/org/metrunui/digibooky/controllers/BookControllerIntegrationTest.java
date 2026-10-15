@@ -11,6 +11,8 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.UUID;
+
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -40,6 +42,36 @@ class BookControllerIntegrationTest {
                 .andExpect(jsonPath("$[*].authorFirstName", hasItem("Kent")))
                 .andExpect(jsonPath("$[*].authorLastName", hasItem("Beck")))
                 .andExpect(jsonPath("$[0].summary").doesNotExist());
+    }
+
+    @Test
+    void getBook_returnsBooksWithIsbnTitleAuthorNameAndSummary() throws Exception {
+        // Arrange: put data in the system
+        Book book = new Book("9780321146533", "Test Driven Development", "Lorem ipsum", "Beck", "Kent");
+        repository.save(book);
+
+        // Act + Assert: call endpoint like a client
+        mockMvc.perform(get("/books/" + book.getBookId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("isbn").value("9780321146533"))
+                .andExpect(jsonPath("title").value("Test Driven Development"))
+                .andExpect(jsonPath("authorFirstName").value("Kent"))
+                .andExpect(jsonPath("authorLastName").value("Beck"))
+                .andExpect(jsonPath("summary").value("Lorem ipsum"));
+    }
+
+    @Test
+    void getBook_givenUnknownButCorrectlyFormattedId_returnsNotFoundResponse() throws Exception {
+        // Act + Assert: call endpoint like a client
+        mockMvc.perform(get("/books/5d19680d-47b6-4905-901d-358cf78fb371"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getBook_givenIncorrectlyFormattedId_returnsBadRequestResponse() throws Exception {
+        // Act + Assert: call endpoint like a client
+        mockMvc.perform(get("/books/badformat"))
+                .andExpect(status().isBadRequest());
     }
 
 }

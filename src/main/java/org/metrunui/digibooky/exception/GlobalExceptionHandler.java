@@ -3,6 +3,7 @@ package org.metrunui.digibooky.exception;
 import org.jspecify.annotations.NonNull;
 import org.metrunui.digibooky.controllers.ForbiddenException;
 import org.metrunui.digibooky.controllers.UnauthorizedException;
+import org.metrunui.digibooky.domain.BookNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +30,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("Unexpected error", ex);
         return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Something went wrong. Please try again later.");
+    }
+
+    @ExceptionHandler(BookServiceException.class)
+    public ProblemDetail handleBookServiceException(BookServiceException ex) {
+        log.warn("Bad request: {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ProblemDetail handleBookNotFoundException(BookNotFoundException ex) {
+        log.warn("Not found: {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler(UnauthorizedException.class)

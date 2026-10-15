@@ -1,15 +1,13 @@
 package org.metrunui.digibooky.controllers;
 
+import org.metrunui.digibooky.controllers.dtos.BookDetailResponseDTO;
 import org.metrunui.digibooky.controllers.dtos.BookResponseDTO;
 import org.metrunui.digibooky.controllers.mapper.BookMapper;
 import org.metrunui.digibooky.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +30,12 @@ public class BookController {
     public List<BookResponseDTO> getAllBooks() {
         log.trace("Get all books called");
         return bookMapper.toBookResponseDTO(bookService.getAllBooks()).stream().toList();
+    }
+
+    @GetMapping(path = "/{id}", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDetailResponseDTO getBook(@PathVariable String id) {
+        log.trace("Query for book with id: " + id);
+        return bookMapper.toBookDetailResponseDTO(bookService.getBook(id));
     }
 }

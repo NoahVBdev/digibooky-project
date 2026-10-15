@@ -1,5 +1,6 @@
 package org.metrunui.digibooky.controllers.mapper;
 
+import org.metrunui.digibooky.controllers.dtos.BookDetailResponseDTO;
 import org.metrunui.digibooky.controllers.dtos.BookResponseDTO;
 import org.metrunui.digibooky.controllers.dtos.CreateBookDTO;
 import org.metrunui.digibooky.domain.Book;
@@ -24,6 +25,10 @@ public class BookMapper {
 
     public Book toBook(CreateBookDTO createBookDTO) {
         return new Book(createBookDTO.isbn(), createBookDTO.title(), createBookDTO.summary(), createBookDTO.authorLastName(), createBookDTO.authorFirstName());
+    }
+
+    public BookDetailResponseDTO toBookDetailResponseDTO(Book book) {
+        return new BookDetailResponseDTO(book.getBookId(), book.getIsbn(), book.getTitle(), book.getSummary(), book.getAuthorLastName(), book.getAuthorFirstName());
     }
 
 //    public Collection<BookDTO> toSimpleDTO(Collection<Book> allBooks) {
