@@ -12,9 +12,9 @@ public class BookRepository {
 
     public BookRepository() {
         this.books = new ConcurrentHashMap<>();
-        Book book1 = new Book("97845634586157", "BEst Book ever: Read this", "Small summary", "Beck", "Kent");
-        Book book2 = new Book("97845631236157", "No, this is the best Book ever: Read this instead", "Smaller summary", "Beck", "Kent");
-        Book book3 = new Book("97845634586123", "Worst book ever: don't read this", "No summary because you shouldn't even read the summary.", "Beck", "Kent");
+        Book book1 = new Book("9784563458615", "BEst Book ever: Read this", "Small summary", "Beck", "Kent");
+        Book book2 = new Book("9784563123615", "No, this is the best Book ever: Read this instead", "Smaller summary", "Beck", "Kent");
+        Book book3 = new Book("9784563458612", "Worst book ever: don't read this", "No summary because you shouldn't even read the summary.", "Beck", "Kent");
         books.put(book1.getBookId(), book1);
         books.put(book2.getBookId(), book2);
         books.put(book3.getBookId(), book3);
