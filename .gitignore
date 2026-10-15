@@ -34,3 +34,4 @@ build/
 
 ### Digibooky ###
 /src/main/java/org/metrunui/digibooky/log/application.log
+log/*
