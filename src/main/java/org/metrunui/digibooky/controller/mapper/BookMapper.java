@@ -1,8 +1,8 @@
-package org.metrunui.digibooky.controllers.mapper;
+package org.metrunui.digibooky.controller.mapper;
 
-import org.metrunui.digibooky.controllers.dtos.BookDetailResponseDTO;
-import org.metrunui.digibooky.controllers.dtos.BookResponseDTO;
-import org.metrunui.digibooky.controllers.dtos.CreateBookDTO;
+import org.metrunui.digibooky.controller.dto.BookDetailResponseDTO;
+import org.metrunui.digibooky.controller.dto.BookResponseDTO;
+import org.metrunui.digibooky.controller.dto.CreateBookDTO;
 import org.metrunui.digibooky.domain.Book;
 import org.springframework.stereotype.Component;
 

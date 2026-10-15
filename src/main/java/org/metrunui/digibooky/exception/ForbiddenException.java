@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.controllers;
+package org.metrunui.digibooky.exception;
 
 public class ForbiddenException extends  RuntimeException {
     public ForbiddenException(String message) {

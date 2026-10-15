@@ -67,4 +67,8 @@ public class BookRepository {
         }
         return Optional.ofNullable(books.get(id));
     }
+
+    public void clear() {
+        books.clear();
+    }
 }

@@ -2,8 +2,8 @@ package org.metrunui.digibooky.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.metrunui.digibooky.controllers.ForbiddenException;
-import org.metrunui.digibooky.controllers.UnauthorizedException;
+import org.metrunui.digibooky.exception.ForbiddenException;
+import org.metrunui.digibooky.exception.UnauthorizedException;
 import org.metrunui.digibooky.domain.Feature;
 import org.metrunui.digibooky.domain.Role;
 import org.metrunui.digibooky.domain.User;

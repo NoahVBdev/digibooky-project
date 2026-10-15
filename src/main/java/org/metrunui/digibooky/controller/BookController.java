@@ -1,8 +1,8 @@
-package org.metrunui.digibooky.controllers;
+package org.metrunui.digibooky.controller;
 
-import org.metrunui.digibooky.controllers.dtos.BookDetailResponseDTO;
-import org.metrunui.digibooky.controllers.dtos.BookResponseDTO;
-import org.metrunui.digibooky.controllers.mapper.BookMapper;
+import org.metrunui.digibooky.controller.dto.BookDetailResponseDTO;
+import org.metrunui.digibooky.controller.dto.BookResponseDTO;
+import org.metrunui.digibooky.controller.mapper.BookMapper;
 import org.metrunui.digibooky.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

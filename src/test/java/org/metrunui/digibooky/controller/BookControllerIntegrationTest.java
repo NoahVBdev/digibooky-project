@@ -1,5 +1,6 @@
-package org.metrunui.digibooky.controllers;
+package org.metrunui.digibooky.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.metrunui.digibooky.domain.Book;
 import org.metrunui.digibooky.repository.BookRepository;
 import org.metrunui.digibooky.service.BookService;
@@ -10,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.UUID;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,6 +27,11 @@ class BookControllerIntegrationTest {
     private BookService service;
     @Autowired
     private BookRepository repository;
+
+    @BeforeEach
+    void setUp() {
+        repository.clear();
+    }
 
     @Test
     void getAllBooks_returnsBooksWithIsbnTitleAndAuthorName() throws Exception {

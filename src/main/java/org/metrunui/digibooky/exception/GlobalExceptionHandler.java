@@ -1,8 +1,6 @@
 package org.metrunui.digibooky.exception;
 
 import org.jspecify.annotations.NonNull;
-import org.metrunui.digibooky.controllers.ForbiddenException;
-import org.metrunui.digibooky.controllers.UnauthorizedException;
 import org.metrunui.digibooky.domain.BookNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
