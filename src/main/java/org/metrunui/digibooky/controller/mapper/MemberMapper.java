@@ -1,7 +1,7 @@
 package org.metrunui.digibooky.controllers.mapper;
 
-import org.metrunui.digibooky.controllers.dto.CreateMemberDTO;
-import org.metrunui.digibooky.controllers.dto.MemberDTO;
+import org.metrunui.digibooky.controller.dto.CreateMemberDTO;
+import org.metrunui.digibooky.controller.dto.MemberDTO;
 import org.metrunui.digibooky.domain.Address;
 import org.metrunui.digibooky.domain.Member;
 import org.springframework.stereotype.Component;
