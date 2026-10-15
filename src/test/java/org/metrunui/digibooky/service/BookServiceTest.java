@@ -33,5 +33,6 @@ class BookServiceTest {
         
         // THEN
         assertEquals(expectedBooks, bookService.getAllBooks());
+        Mockito.verify(bookRepository).getAllBooks();
     }
 }
