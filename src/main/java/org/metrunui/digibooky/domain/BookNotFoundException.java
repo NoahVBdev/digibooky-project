@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.exception;
+package org.metrunui.digibooky.domain;
 
 public class BookNotFoundException extends RuntimeException {
     public BookNotFoundException(String message) {
