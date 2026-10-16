@@ -1,9 +1,9 @@
-package org.metrunui.digibooky.controllers;
+package org.metrunui.digibooky.controller;
 
 import jakarta.validation.Valid;
-import org.metrunui.digibooky.controllers.dto.CreateUserDTO;
-import org.metrunui.digibooky.controllers.dto.UserDTO;
-import org.metrunui.digibooky.controllers.mapper.UserMapper;
+import org.metrunui.digibooky.controller.dto.CreateUserDTO;
+import org.metrunui.digibooky.controller.dto.UserDTO;
+import org.metrunui.digibooky.controller.mapper.UserMapper;
 import org.metrunui.digibooky.domain.Feature;
 import org.metrunui.digibooky.domain.Role;
 import org.metrunui.digibooky.domain.User;
