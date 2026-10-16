@@ -1,12 +1,14 @@
 package org.metrunui.digibooky.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.metrunui.digibooky.controller.dto.BookDetailResponseDTO;
 import org.metrunui.digibooky.controller.dto.CreateBookDTO;
 import org.metrunui.digibooky.controller.mapper.BookMapper;
 import org.metrunui.digibooky.domain.Book;
@@ -20,6 +22,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.stream.Stream;
 
@@ -182,11 +185,10 @@ class BookControllerIntegrationTest {
                 final String summary = "In this fun book we're checking out integration testing!";
                 final String authorLastName = "Kent";
                 final String authorFirstName = "Clark";
-
                 CreateBookDTO request = new CreateBookDTO(bookISBN, bookTitle, summary, authorLastName, authorFirstName);
 
                 // When + Then
-                mockMvc.perform(post("/books")
+                String bookAsString = mockMvc.perform(post("/books")
                                 .header("X-User-id", "00000000-0000-0000-0000-000000000002")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(request)))
@@ -196,7 +198,13 @@ class BookControllerIntegrationTest {
                         .andExpect(jsonPath("title").value(bookTitle))
                         .andExpect(jsonPath("summary").value(summary))
                         .andExpect(jsonPath("authorLastName").value(authorLastName))
-                        .andExpect(jsonPath("authorFirstName").value(authorFirstName));
+                        .andExpect(jsonPath("authorFirstName").value(authorFirstName))
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
+
+                BookDetailResponseDTO bookDetailResponseDTO = new ObjectMapper().readValue(bookAsString, BookDetailResponseDTO.class);
+                Assertions.assertThat(repository.getBook(bookDetailResponseDTO.bookId())).isNotEmpty();
 
             }
 
