@@ -4,6 +4,8 @@ import org.metrunui.digibooky.domain.Book;
 import org.metrunui.digibooky.domain.BookNotFoundException;
 import org.metrunui.digibooky.domain.Lending;
 import org.metrunui.digibooky.exception.BookAlreadyLentException;
+import org.metrunui.digibooky.exception.ForbiddenException;
+import org.metrunui.digibooky.exception.LendingNotFoundException;
 import org.metrunui.digibooky.repository.BookRepository;
 import org.metrunui.digibooky.repository.LendingRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,18 @@ public class LendingService {
         this.lendingRepository = lendingRepository;
         this.bookRepository = bookRepository;
         this.clock = clock;
+    }
+
+    public Lending returnBook(UUID callerId, UUID lendingId) {
+        Lending lending = lendingRepository.findById(lendingId)
+                .orElseThrow(() -> new LendingNotFoundException("Lending with id " + lendingId + " not found"));
+
+        if (!lending.getMemberId().equals(callerId)) {
+            throw new ForbiddenException("You can only return your own lendings");
+        }
+
+        lending.returnBook(LocalDate.now(clock));
+        return lendingRepository.save(lending);
     }
 
     public Lending lendBook(UUID memberId, String isbn) {

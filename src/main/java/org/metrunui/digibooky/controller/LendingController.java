@@ -3,6 +3,7 @@ package org.metrunui.digibooky.controller;
 import jakarta.validation.Valid;
 import org.metrunui.digibooky.controller.dto.LendBookDTO;
 import org.metrunui.digibooky.controller.dto.LendingDTO;
+import org.metrunui.digibooky.controller.dto.ReturnLendingDTO;
 import org.metrunui.digibooky.controller.mapper.LendingMapper;
 import org.metrunui.digibooky.domain.Feature;
 import org.metrunui.digibooky.domain.Lending;
@@ -26,6 +27,15 @@ public class LendingController {
         this.lendingService = lendingService;
         this.lendingMapper = lendingMapper;
         this.authorizationService = authorizationService;
+    }
+
+    @PostMapping("/{lendingId}/return")
+    @ResponseStatus(HttpStatus.OK)
+    public ReturnLendingDTO returnBook(@RequestHeader(value = "X-User-Id", required = false) UUID userId,
+                                       @PathVariable UUID lendingId) {
+        User caller = authorizationService.authorize(userId, Feature.RETURN_BOOK);
+        Lending lending = lendingService.returnBook(caller.getId(), lendingId);
+        return lendingMapper.toReturnLendingDTO(lending);
     }
 
     @PostMapping
