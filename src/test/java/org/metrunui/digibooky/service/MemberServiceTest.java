@@ -51,6 +51,16 @@ class MemberServiceTest {
                 .hasMessageContaining("INSS already exists");
     }
 
+    @Test
+    void getAllMembers_returnsOnlyMembers() {
+        Member andreas = memberService.registerMember(
+                new Member("85073003328", "Andreas", "Lemoine", "andreas@digibooky.be", ADDRESS));
+
+        assertThat(memberService.getAllMembers())
+                .contains(andreas)
+                .allSatisfy(member -> assertThat(member.getRole()).isEqualTo(Role.MEMBER));
+    }
+
 
 
 
