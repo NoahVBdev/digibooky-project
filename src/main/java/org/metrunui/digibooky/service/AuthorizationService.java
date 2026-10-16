@@ -26,19 +26,25 @@ public class AuthorizationService {
     public void requiredFeature(User user, Feature feature) throws ForbiddenException {
 
         if (!user.getRole().hasFeature(feature)){
-            throw new ForbiddenException("You're not allowed to do this");
+            throw new ForbiddenException("Not allowed");
         }
     }
 
     public User getCallingUser(UUID id) throws UnauthorizedException {
         if (id == null) {
             logs.warn("Request received without a user id");
-            throw new UnauthorizedException("You must provide a user id");
+            throw new UnauthorizedException("Must provide a user id");
         }
         return userRepository.getById(id).orElseThrow(() -> {
             logs.warn("Request received with unknown user id {}", id);
             return new UnauthorizedException("Unknown user id");
         });
+    }
+
+    public User authorize(UUID userId, Feature feature) {
+        User caller = getCallingUser(userId);
+        requiredFeature(caller, feature);
+        return caller;
     }
 
 
