@@ -27,9 +27,13 @@ public class BookController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<BookResponseDTO> getAllBooks() {
-        log.trace("Get all books called");
-        return bookMapper.toBookResponseDTO(bookService.getAllBooks()).stream().toList();
+    public List<BookResponseDTO> getBooks(
+            @RequestParam(required = false) String isbn,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String authorLastName,
+            @RequestParam(required = false) String authorFirstName) {
+        log.trace("Get books called");
+        return bookMapper.toBookResponseDTO(bookService.getBooks(isbn, title, authorLastName, authorFirstName)).stream().toList();
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
