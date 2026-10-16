@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.controllers;
+package org.metrunui.digibooky.exception;
 
 public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException(String message) {

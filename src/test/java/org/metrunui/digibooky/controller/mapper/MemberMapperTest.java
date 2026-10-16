@@ -1,14 +1,13 @@
-package org.metrunui.digibooky.controllers.mapper;
+package org.metrunui.digibooky.controller.mapper;
 
 import org.junit.jupiter.api.Test;
-import org.metrunui.digibooky.controllers.dto.CreateMemberDTO;
-import org.metrunui.digibooky.controllers.dto.MemberDTO;
+import org.metrunui.digibooky.controller.dto.CreateMemberDTO;
+import org.metrunui.digibooky.controller.dto.MemberDTO;
 import org.metrunui.digibooky.domain.Address;
 import org.metrunui.digibooky.domain.Member;
 import org.metrunui.digibooky.domain.Role;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MemberMapperTest {
 

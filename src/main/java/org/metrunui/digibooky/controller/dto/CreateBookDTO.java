@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.controllers.dtos;
+package org.metrunui.digibooky.controller.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

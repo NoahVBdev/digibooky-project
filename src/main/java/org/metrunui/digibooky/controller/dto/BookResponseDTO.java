@@ -1,4 +1,4 @@
-package org.metrunui.digibooky.controllers.dtos;
+package org.metrunui.digibooky.controller.dto;
 
 import java.util.UUID;
 

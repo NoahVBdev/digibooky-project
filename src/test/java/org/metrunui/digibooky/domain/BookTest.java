@@ -27,7 +27,7 @@ class BookTest {
     }
 
     @ParameterizedTest()
-    @ValueSource(strings = {"", "  ", "1234567891014", "987456789101", "98745678910111"})
+    @ValueSource(strings = {"", "  ", "1234567891014", "987456789101", "98745678910111", "978hello45678"})
     void givenNonValidIsbn_whenCreatingBook_thenThrowsBookException(String isbn) {
         Assertions.assertThatThrownBy(() -> new Book(isbn, "Valid", "Valid", "Valid", "Valid")).isInstanceOf(BookException.class);
     }
