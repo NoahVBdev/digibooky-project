@@ -1,6 +1,7 @@
 package org.metrunui.digibooky.exception;
 
 import org.jspecify.annotations.NonNull;
+import org.metrunui.digibooky.domain.BookNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,12 +50,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ProblemDetail handleBookNotFoundException(BookNotFoundException ex) {
         log.warn("Not found: {}", ex.getMessage());
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-    }
-
-    @ExceptionHandler(BookMapperException.class)
-    public ProblemDetail handleBookMapperException(BookMapperException ex) {
-        log.warn("Unable to map: {}", ex.getMessage());
-        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     @ExceptionHandler(UnauthorizedException.class)
