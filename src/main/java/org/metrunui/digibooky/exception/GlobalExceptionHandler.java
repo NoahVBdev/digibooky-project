@@ -26,6 +26,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
+    @ExceptionHandler(BookAlreadyLentException.class)
+    public ProblemDetail handleBookAlreadyLent(BookAlreadyLentException ex) {
+        log.warn("Book already lent: {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleUnexpected(Exception ex) {
         log.error("Unexpected error", ex);
@@ -61,6 +67,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ProblemDetail handleForbidden(ForbiddenException ex) {
         log.warn("Forbidden: {}", ex.getMessage());
         return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+    }
+
+    @ExceptionHandler(LendingNotFoundException.class)
+    public ProblemDetail handleLendingNotFound(LendingNotFoundException ex) {
+        log.warn("Not found: {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(LendingAlreadyReturnedException.class)
+    public ProblemDetail handleLendingAlreadyReturned(LendingAlreadyReturnedException ex) {
+        log.warn("Bad request: {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     // Logs the errors Spring handles itself (invalid JSON, wrong method, ...)

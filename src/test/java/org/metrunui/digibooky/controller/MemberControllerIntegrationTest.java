@@ -5,6 +5,8 @@ import io.restassured.parsing.Parser;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.metrunui.digibooky.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
@@ -73,6 +75,90 @@ class MemberControllerIntegrationTest {
 
         String sameInssOtherEmail = withField(first, "email", "other." + UUID.randomUUID().toString().substring(0, 8) + "@mail.be");
         postAndExpect400(sameInssOtherEmail, "INSS already exists");
+    }
+
+    @Test
+    void getAllMembers_asAdmin_returns200WithMembersWithoutInss(){
+        given().port(port).header("X-User-Id", UserRepository.DEFAULT_ADMIN_ID)
+                .when()
+                .get("/members")
+                .then()
+                .statusCode(200)
+                .body("id", hasItem(UserRepository.DEFAULT_MEMBER_ID.toString()))
+                .body("email", hasItem("member@digibooky.be"))
+                .body("inss", everyItem(nullValue()));
+
+    }
+
+    @Test
+    void getAllMembers_asAdmin_doesNotReturnAdminsOrLibrarians(){
+        given().port(port).header("X-User-Id", UserRepository.DEFAULT_ADMIN_ID)
+                .when()
+                .get("/members")
+                .then()
+                .statusCode(200)
+                .body("id", not(hasItem(UserRepository.DEFAULT_LIBRARIAN_ID.toString())))
+                .body("id", not(hasItem(UserRepository.DEFAULT_ADMIN_ID.toString())));
+
+    }
+
+    @Test
+    void getAllMembers_whenNewMembersCreatedToCheckIfTheListContainsThem(){
+        String json = validMemberJson();
+        String newId = given().port(port).contentType(ContentType.JSON)
+                .body(json)
+                .post("/members")
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("id");
+
+        given().port(port).header("X-User-id", UserRepository.DEFAULT_ADMIN_ID)
+                .when()
+                .get("/members")
+                .then()
+                .statusCode(200)
+                .body("id", hasItem(newId));
+    }
+
+    @Test
+    void getAllMembers_asLibrarian_returns403(){
+        given().port(port).header("X-User-Id",UserRepository.DEFAULT_LIBRARIAN_ID)
+                .when()
+                .get("/members")
+                .then()
+                .statusCode(403)
+                .body("detail", containsString("Not allowed"));
+
+    }
+
+    @Test
+    void getAllMembers_asMember_returns403() {
+        given().port(port).header("X-User-Id", UserRepository.DEFAULT_MEMBER_ID)
+                .when().get("/members")
+                .then()
+                .statusCode(403)
+                .body("detail", containsString("Not allowed"));
+    }
+
+    @Test
+    void getAllMembers_withoutUserId_returns401(){
+        given().port(port)
+                .when().get("/members")
+                .then()
+                .statusCode(401)
+                .body("detail", containsString("Must provide a user id"));
+
+    }
+
+    @Test
+    void getAllMembers_withUnknowUserId_returns401(){
+        given().port(port).header("X-User-Id", UUID.randomUUID())
+                .when().get("/members")
+                .then()
+                .statusCode(401)
+                .body("detail", containsString("Unknown user id"));
+
     }
 
     private void postAndExpect400(String json, String expectedMessage) {

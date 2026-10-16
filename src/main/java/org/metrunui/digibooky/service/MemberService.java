@@ -5,10 +5,12 @@ import org.metrunui.digibooky.domain.Member;
 import org.metrunui.digibooky.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MemberService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public MemberService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -23,5 +25,9 @@ public class MemberService {
         }
         userRepository.save(member);
         return member;
+    }
+
+    public List<Member> getAllMembers() {
+        return userRepository.findAllMembers();
     }
 }

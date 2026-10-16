@@ -36,6 +36,13 @@ public class UserRepository {
         return List.copyOf(users.values());
     }
 
+    public List<Member> findAllMembers() {
+        return users.values().stream()
+                .filter(user -> user instanceof Member)
+                .map(user -> (Member) user)
+                .toList();
+    }
+
     public User save(User user){
         users.put(user.getId(), user);
         return user;
