@@ -4,6 +4,8 @@ import org.metrunui.digibooky.controller.dto.BookDetailResponseDTO;
 import org.metrunui.digibooky.controller.dto.BookResponseDTO;
 import org.metrunui.digibooky.controller.dto.CreateBookDTO;
 import org.metrunui.digibooky.domain.Book;
+import org.metrunui.digibooky.domain.BookException;
+import org.metrunui.digibooky.exception.BookMapperException;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -24,7 +26,11 @@ public class BookMapper {
     }
 
     public Book toBook(CreateBookDTO createBookDTO) {
-        return new Book(createBookDTO.isbn(), createBookDTO.title(), createBookDTO.summary(), createBookDTO.authorLastName(), createBookDTO.authorFirstName());
+        try {
+            return new Book(createBookDTO.isbn(), createBookDTO.title(), createBookDTO.summary(), createBookDTO.authorLastName(), createBookDTO.authorFirstName());
+        } catch (BookException ex) {
+            throw new BookMapperException("Could not map to book: " + ex.getMessage());
+        }
     }
 
     public BookDetailResponseDTO toBookDetailResponseDTO(Book book) {

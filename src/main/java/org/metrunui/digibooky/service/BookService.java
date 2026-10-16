@@ -1,7 +1,7 @@
 package org.metrunui.digibooky.service;
 
 import org.metrunui.digibooky.domain.Book;
-import org.metrunui.digibooky.domain.BookNotFoundException;
+import org.metrunui.digibooky.exception.BookNotFoundException;
 import org.metrunui.digibooky.exception.BookServiceException;
 import org.metrunui.digibooky.repository.BookRepository;
 import org.metrunui.digibooky.util.BookSearchCriteria;
