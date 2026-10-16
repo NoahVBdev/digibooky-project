@@ -1,12 +1,11 @@
 package org.metrunui.digibooky.service;
 
-import org.metrunui.digibooky.domain.Lending;
-import org.metrunui.digibooky.exception.ForbiddenException;
-import org.metrunui.digibooky.exception.LendingNotFoundException;
 import org.metrunui.digibooky.domain.Book;
 import org.metrunui.digibooky.domain.BookNotFoundException;
 import org.metrunui.digibooky.domain.Lending;
 import org.metrunui.digibooky.exception.BookAlreadyLentException;
+import org.metrunui.digibooky.exception.ForbiddenException;
+import org.metrunui.digibooky.exception.LendingNotFoundException;
 import org.metrunui.digibooky.repository.BookRepository;
 import org.metrunui.digibooky.repository.LendingRepository;
 import org.springframework.stereotype.Service;
@@ -36,6 +35,9 @@ public class LendingService {
         }
 
         lending.returnBook(LocalDate.now(clock));
+        return lendingRepository.save(lending);
+    }
+
     public Lending lendBook(UUID memberId, String isbn) {
         Book book = bookRepository.findByISBN(isbn)
                 .orElseThrow(() -> new BookNotFoundException("Book with ISBN " + isbn + " not found"));
